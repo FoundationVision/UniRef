@@ -1,18 +1,4 @@
-## Projects by JunfengWu 
-
-项目文件夹：https://bytedance.feishu.cn/drive/folder/fldcnhu5DUKBJ8UJagOWb3B0ySC?from=space_persnoal_filelist
-
-DDETRS: Deformable DETR x CondInst x OTA：https://bytedance.feishu.cn/docx/doxcnrhGyKuzbnhNfqzhhrIO01c
-
-IDOL: Contrastive Online VIS: https://bytedance.feishu.cn/docx/doxcn7iQxtqF1MdjXr5Y3Cyxwjg
-
-SeqFormer: Ofline VIS method: WIP
-
-
-
-
-
-
+## Projects UniRef
 
 
 
