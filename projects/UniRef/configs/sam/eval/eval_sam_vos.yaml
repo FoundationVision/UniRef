@@ -1,0 +1,8 @@
+_BASE_: "../sam_video_joint_vos_rvos_8gpu.yaml"
+DATASETS:
+  TEST: 
+  - "ytbvos18-val"
+  - "ytbvos19-val"
+  - "davis17-val"
+  - "vos-lvos-val"
+  - "mose-val"

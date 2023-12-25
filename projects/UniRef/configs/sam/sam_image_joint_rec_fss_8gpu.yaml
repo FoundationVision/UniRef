@@ -1,0 +1,49 @@
+MODEL:
+  META_ARCHITECTURE: "UniRef_SAM"
+  WEIGHTS: ""
+  PIXEL_MEAN: [123.675, 116.280, 103.530]
+  PIXEL_STD: [58.395, 57.120, 57.375]
+  MASK_ON: True
+  WITH_MASK_REF: True
+  WITH_LANG_REF: True
+  LANG_CONFIG:
+    FREEZE_TEXT_ENCODER: False
+    MODEL_TYPE: "bert-base"
+DATASETS:
+  TRAIN: ("refcoco-mixed", "fss-1000-train")
+  TEST: ("refcoco-unc-val", "fss-1000-val")
+SOLVER:
+  IMS_PER_BATCH: 16 # batch-per-gpu = 2
+  BASE_LR: 0.0002
+  STEPS: (75000,)
+  MAX_ITER: 90000
+  WARMUP_FACTOR: 1.0
+  WARMUP_ITERS: 200
+  WEIGHT_DECAY: 0.05
+  OPTIMIZER: "ADAMW"
+  BACKBONE_MULTIPLIER: 0.1
+  CLIP_GRADIENTS:
+    ENABLED: True
+    CLIP_TYPE: "full_model"
+    CLIP_VALUE: 0.1
+    NORM_TYPE: 2.0
+  CHECKPOINT_PERIOD: 5000
+INPUT:
+  DATASET_MAPPER_NAME: "sam"
+  CROP:
+    ENABLED: True
+    TYPE: "absolute_range"
+    SIZE: (384, 600)
+  FORMAT: "RGB"
+TEST:
+  EVAL_PERIOD: 5000
+DATALOADER:
+  SAMPLER_TRAIN: "MultiDatasetSampler"
+  DATASET_RATIO: [1, 0.05] 
+  USE_DIFF_BS_SIZE: True
+  DATASET_BS: [2, 2]
+  USE_RFS: [False, False]
+  FILTER_EMPTY_ANNOTATIONS: True
+  NUM_WORKERS: 8
+OUTPUT_DIR: outputs/sam_image_joint_rec_fss_8gpu
+VERSION: 2

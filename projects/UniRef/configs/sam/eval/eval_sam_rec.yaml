@@ -1,0 +1,3 @@
+_BASE_: "../sam_image_joint_rec_fss_8gpu.yaml"
+DATASETS:
+  TEST: ("refcoco-unc-val",)

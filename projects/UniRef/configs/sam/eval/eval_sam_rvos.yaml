@@ -1,0 +1,8 @@
+_BASE_: "../sam_video_joint_vos_rvos_8gpu.yaml"
+DATASETS:
+  TEST: 
+  - "refytvos-val"
+  - "refdavis-val-0"
+  - "refdavis-val-1"
+  - "refdavis-val-2"
+  - "refdavis-val-3"

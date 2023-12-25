@@ -1,0 +1,3 @@
+_BASE_: "../../image/joint_task_finetune_det_rec_fss_swin-l_16gpu.yaml"
+DATASETS:
+  TEST: ("refcoco-unc-val", "refcoco-unc-testA", "refcoco-unc-testB", "refcocoplus-unc-val", "refcocoplus-unc-testA", "refcocoplus-unc-testB", "refcocog-umd-val", "refcocog-umd-test")

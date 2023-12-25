@@ -1,0 +1,8 @@
+_BASE_: "../../video/joint_task_vos_rvos_swin-l_16gpu.yaml"
+DATASETS:
+  TEST: 
+  - "refytvos-val"
+  - "refdavis-val-0"
+  - "refdavis-val-1"
+  - "refdavis-val-2"
+  - "refdavis-val-3"

@@ -1,0 +1,112 @@
+MODEL:
+  META_ARCHITECTURE: "UniRef_SAM"
+  WEIGHTS: ""
+  PIXEL_MEAN: [123.675, 116.280, 103.530]
+  PIXEL_STD: [58.395, 57.120, 57.375]
+  MASK_ON: True
+  WITH_MASK_REF: True
+  WITH_LANG_REF: True
+  LANG_CONFIG:
+    FREEZE_TEXT_ENCODER: True
+    MODEL_TYPE: "bert-base"
+DATASETS:
+  TRAIN:
+  # VOS
+  - "video-coco_2017_train"
+  - "ytbvos19-train"
+  - "vos-lvos-train"
+  - "ovis-train"
+  # RVOS
+  - "video-refcoco-mixed"
+  - "refytvos-train"
+  TEST: 
+  # VOS
+  - "ytbvos18-val"
+  - "ytbvos19-val"
+  - "davis17-val"
+  - "vos-lvos-val"
+  - "mose-val"
+  # RVOS
+  - "refytvos-val"
+  - "refdavis-val-0"
+  - "refdavis-val-1"
+  - "refdavis-val-2"
+  - "refdavis-val-3"
+SOLVER:
+  IMS_PER_BATCH: 16 # batch-per-gpu = 2
+  BASE_LR: 0.0001
+  STEPS: (75000,)
+  MAX_ITER: 90000
+  WARMUP_FACTOR: 1.0
+  WARMUP_ITERS: 200
+  WEIGHT_DECAY: 0.05
+  OPTIMIZER: "ADAMW"
+  BACKBONE_MULTIPLIER: 0.1
+  CLIP_GRADIENTS:
+    ENABLED: True
+    CLIP_TYPE: "full_model"
+    CLIP_VALUE: 0.1
+    NORM_TYPE: 2.0
+  CHECKPOINT_PERIOD: 5000
+INPUT:
+  DATASET_MAPPER_NAME: "ytvis_sam"
+  SAMPLING_FRAME_NUM: 2
+  SAMPLING_FRAME_RANGE:  10
+  # MIN_SIZE_TRAIN_SAMPLING : ["range", "choice", "range_by_clip", "choice_by_clip"]
+  MIN_SIZE_TRAIN_SAMPLING: "choice_by_clip"
+  # RANDOM_FLIP : ["none", "horizontal", "flip_by_clip"]. "horizontal" is set by default.
+  RANDOM_FLIP: "flip_by_clip"
+  # AUGMENTATIONS: []
+  MIN_SIZE_TRAIN_MULTI:
+  # not used, SAM use fixed size of (1024, 1024)
+  # VOS
+  - [320, 352, 392, 416, 448, 480, 512, 544, 576, 608, 640]
+  - [320, 352, 392, 416, 448, 480, 512, 544, 576, 608, 640]
+  - [320, 352, 392, 416, 448, 480, 512, 544, 576, 608, 640]
+  - [320, 352, 392, 416, 448, 480, 512, 544, 576, 608, 640]
+  # RVOS
+  - [480, 512, 544, 576, 608, 640, 672, 704, 736, 768, 800]
+  - [320, 352, 392, 416, 448, 480, 512, 544, 576, 608, 640]
+  MAX_SIZE_TRAIN_MULTI: 
+  # VOS
+  - 768
+  - 768
+  - 768
+  - 768
+  # RVOS
+  - 1333
+  - 768
+  MIN_SIZE_TEST: 480
+  CROP:
+    ENABLED: True
+    TYPE: "absolute_range"
+    SIZE: (384, 600)
+  FORMAT: "RGB"
+TEST:
+  EVAL_PERIOD: 0 # only inference for the last checkpoint
+DATALOADER:
+  SAMPLER_TRAIN: "MultiDatasetSampler"
+  DATASET_RATIO: 
+  # VOS
+  - 0.8
+  - 0.6
+  - 0.4
+  - 0.2
+  # RVOS
+  - 1
+  - 1
+  USE_DIFF_BS_SIZE: True
+  DATASET_BS: 
+  # VOS
+  - 2
+  - 2
+  - 2
+  - 2
+  # RVOS
+  - 2
+  - 2
+  USE_RFS: [False, False, False, False, False, False]
+  FILTER_EMPTY_ANNOTATIONS: False
+  NUM_WORKERS: 8
+OUTPUT_DIR: outputs/sam_video_joint_vos_rvos_8gpu
+VERSION: 2
