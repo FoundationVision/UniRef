@@ -58,13 +58,8 @@ class HungarianMatcher(nn.Module):
                 bz_tgt_ids = targets[batch_idx]["labels"]
                 num_insts = len(bz_tgt_ids)
                 bz_gtboxs = targets[batch_idx]['boxes'].reshape(num_insts,4) #[num_gt, 4]
-                # import pdb;pdb.set_trace()
-                # 这里的strides 在ddetr上是FPN输出的最小分辨率stride，可能需要调整. 得到的只是center的先验
                 fg_mask, is_in_boxes_and_center  = \
                     self.get_in_boxes_info(bz_boxes,bz_gtboxs,expanded_strides=32)
-                # bboxes_preds_per_image = bz_boxes[fg_mask]
-                # cls_preds_ = out_prob[batch_idx][fg_mask]   
-                # num_in_boxes_anchor = bboxes_preds_per_image.shape[0]
                 pair_wise_ious = ops.box_iou(box_cxcywh_to_xyxy(bz_boxes), box_cxcywh_to_xyxy(bz_gtboxs))
                 # pair_wise_ious_loss = -torch.log(pair_wise_ious + 1e-8)
 
@@ -85,13 +80,10 @@ class HungarianMatcher(nn.Module):
                 if bz_gtboxs.shape[0]>0:
                     indices_batchi, matched_qidx = self.dynamic_k_matching(cost, pair_wise_ious, bz_gtboxs.shape[0])
                 else:
-                    # non_valid = torch.zeros(pair_wise_ious.shape[0]).to(pair_wise_ious)>0
-                    # indices_batchi = (non_valid,torch.arange(0,0).to(pair_wise_ious))
                     indices_i = torch.tensor([], dtype=torch.int64).to(out_prob.device)
                     indices_j = torch.tensor([], dtype=torch.int64).to(out_prob.device)
                     indices_batchi = (indices_i, indices_j)
                     matched_qidx = []
-                # import pdb;pdb.set_trace()
                 indices.append(indices_batchi)
                 matched_ids.append(matched_qidx)
 
@@ -99,27 +91,18 @@ class HungarianMatcher(nn.Module):
         return indices, matched_ids
 
     def get_in_boxes_info(self, boxes, target_gts, expanded_strides):
-        # size (h,w) 
-        # size = size[[1,0]].repeat(2) # (w,h,w,h)
-
-        # import pdb;pdb.set_trace()
-        # ori_gt_boxes = target_gts*size
         xy_target_gts = box_cxcywh_to_xyxy(target_gts) #x1y1x2y2
         
         anchor_center_x = boxes[:,0].unsqueeze(1)
         anchor_center_y = boxes[:,1].unsqueeze(1)
 
-        # 判断每个anchor 的中心是否在某个gt box 内部
-        b_l = anchor_center_x > xy_target_gts[:,0].unsqueeze(0)  # x1 满足要求
-        b_r = anchor_center_x < xy_target_gts[:,2].unsqueeze(0)  # x2 满足要求
+        b_l = anchor_center_x > xy_target_gts[:,0].unsqueeze(0)  
+        b_r = anchor_center_x < xy_target_gts[:,2].unsqueeze(0)  
         b_t = anchor_center_y > xy_target_gts[:,1].unsqueeze(0)
         b_b = anchor_center_y < xy_target_gts[:,3].unsqueeze(0)
-        # (b_l.long()+b_r.long()+b_t.long()+b_b.long())==4 [300,num_gt] , 等于4表示四个条件都满足，所以只要每个query 对应的num_gt 个里面有一个4则说明该query 有效
         is_in_boxes = ( (b_l.long()+b_r.long()+b_t.long()+b_b.long())==4)
         is_in_boxes_all = is_in_boxes.sum(1)>0  # [num_query]
 
-        #每个gt的cx与cy向外扩展2.5*expanded_strides距离得到left_b,right_b,top_b,bottom_b，
-        # 与anchor进行比较，计算anchor中心点是否包含在left_b,right_b,top_b,bottom_b中，得到 is_in_centers_all (shape:[num_anchors])
         # in fixed center
         center_radius = 2.5
         b_l = anchor_center_x > (target_gts[:,0]-(1*center_radius/expanded_strides)).unsqueeze(0)  # x1 满足要求
@@ -129,32 +112,21 @@ class HungarianMatcher(nn.Module):
         is_in_centers = ( (b_l.long()+b_r.long()+b_t.long()+b_b.long())==4)
         is_in_centers_all = is_in_centers.sum(1)>0
 
-        is_in_boxes_anchor = is_in_boxes_all | is_in_centers_all      # 上述两个条件只要满足一个，就成为候选区域。注意！！！这里是“|”求或
-
-        # ！！！shape:[num_gt, num_in_boxes_anchor]，注意：这里是每一个gt与每一个候选区域的关系
-        # 这里一个anchor可能与多个gt存在候选关系
-        # is_in_boxes_anchor 里两者都满足的anchor
-        # import pdb;pdb.set_trace()
-        # is_in_boxes_and_center = (is_in_boxes[is_in_boxes_anchor, :] & is_in_centers[is_in_boxes_anchor,:] )       
-
+        is_in_boxes_anchor = is_in_boxes_all | is_in_centers_all         
         is_in_boxes_and_center = (is_in_boxes & is_in_centers)   
 
         return is_in_boxes_anchor,is_in_boxes_and_center
     
     def dynamic_k_matching(self, cost, pair_wise_ious, num_gt):
-        matching_matrix = torch.zeros_like(cost) # [300,num_gt] matching_matrix表示映关系，必须保证只能1gt对多query，且每个gt 有query
+        matching_matrix = torch.zeros_like(cost) # [300,num_gt] 
         ious_in_boxes_matrix = pair_wise_ious
         n_query = len(ious_in_boxes_matrix)
         n_candidate_k = min(n_query, 10)
         
-        # 取预测值与gt拥有最大iou前10名的iou总和作为dynamic_k
         topk_ious, _ = torch.topk(ious_in_boxes_matrix, n_candidate_k, dim=0)
-        # min=1,即把dynamic_ks限制最小为1，保证一个gt至少有一个正样本
-        # 刚开始训练时候，由于预测基本不准，导致dynamic_k基本上都是1
         dynamic_ks = torch.clamp(topk_ious.sum(0).int(), min=1)
 
         for gt_idx in range(num_gt):
-        # 取cost排名最小的前dynamic_k个anchor作为postive
             _, pos_idx = torch.topk(cost[:,gt_idx], k=dynamic_ks[gt_idx].item(), largest=False)
             matching_matrix[:,gt_idx][pos_idx] = 1.0
 
@@ -162,14 +134,12 @@ class HungarianMatcher(nn.Module):
 
         anchor_matching_gt = matching_matrix.sum(1)
         
-        if (anchor_matching_gt > 1).sum() > 0: # 如果有一个query 匹配上了多个gt
-            _, cost_argmin = torch.min(cost[anchor_matching_gt > 1], dim=1) #  对这些query找cost 最小的gt
-            matching_matrix[anchor_matching_gt > 1] *= 0 # 清零这些query的映射关系
-            matching_matrix[anchor_matching_gt > 1, cost_argmin,] = 1 # 只保留cost 最小的gt 
+        if (anchor_matching_gt > 1).sum() > 0:
+            _, cost_argmin = torch.min(cost[anchor_matching_gt > 1], dim=1) 
+            matching_matrix[anchor_matching_gt > 1] *= 0
+            matching_matrix[anchor_matching_gt > 1, cost_argmin,] = 1 
 
-        # import pdb;pdb.set_trace()
-        ## 注意！此时删除了一些映射关系可能导致有些gt 没匹配上任何query, 此时通过while 循环重复上述过程直至所有gt 都匹配上
-        while (matching_matrix.sum(0)==0).any(): # 只要有gt 没匹配上
+        while (matching_matrix.sum(0)==0).any(): 
             num_zero_gt = (matching_matrix.sum(0)==0).sum()
             matched_query_id = matching_matrix.sum(1)>0
             cost[matched_query_id] += 100000.0 
@@ -177,22 +147,17 @@ class HungarianMatcher(nn.Module):
             for gt_idx in unmatch_id:
                 pos_idx = torch.argmin(cost[:,gt_idx])
                 matching_matrix[:,gt_idx][pos_idx] = 1.0
-            # 继续判断是否有 多gt 对1 query的情况
-            if (matching_matrix.sum(1) > 1).sum() > 0: # 如果有一个query 匹配上了多个gt
-                _, cost_argmin = torch.min(cost[anchor_matching_gt > 1], dim=1) #  对这些query找cost 最小的gt
-                matching_matrix[anchor_matching_gt > 1] *= 0 # 清零这些query的映射关系
-                matching_matrix[anchor_matching_gt > 1, cost_argmin,] = 1 # 只保留cost 最小的gt 
+            if (matching_matrix.sum(1) > 1).sum() > 0: 
+                _, cost_argmin = torch.min(cost[anchor_matching_gt > 1], dim=1)
+                matching_matrix[anchor_matching_gt > 1] *= 0 
+                matching_matrix[anchor_matching_gt > 1, cost_argmin,] = 1 
 
-        assert not (matching_matrix.sum(0)==0).any() # 所有gt 都匹配上query
-        # 此时 matching_matrix 是一个[300,num_gt] 的0-1矩阵
+        assert not (matching_matrix.sum(0)==0).any() 
         # 
         selected_query = matching_matrix.sum(1)>0
         gt_indices = matching_matrix[selected_query].max(1)[1]
         assert selected_query.sum() == len(gt_indices)
 
-        # import pdb;pdb.set_trace()# 此处需要额外返回，跟每个gt 最匹配的query idx
-        # matched_cost = ((matching_matrix==0)+cost) # 找出所有没匹配上的cost，加上极大值，找到每个gt最小的cost
-        # matched_query_id  = torch.min(matched_cost,dim=0)[1]
         cost[matching_matrix==0] = cost[matching_matrix==0] + float('inf')
         matched_query_id = torch.min(cost,dim=0)[1]
 
