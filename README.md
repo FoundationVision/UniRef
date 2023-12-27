@@ -29,10 +29,10 @@ https://github.com/FoundationVision/UniRef/assets/21001460/63d875ed-9f5b-47c9-99
 
 - The results are reported on the validation set.
 
-   | <div style="width: 100pt">Model    | RefCOCO |  <div style="width: 80pt">FSS-1000 |  <div style="width: 120pt">Ref-Youtube-VOS |  <div style="width: 100pt">Ref-DAVIS17 |  <div style="width: 100pt">Youtube-VOS18 | DAVIS17 | LVOS | Checkpoint |
-  | ------------------- | :----: | :---: | :-----: | :---: | :--: | :--: | :-------: | :--: |
-  | UniRef++-R50        |  75.6  | 79.1  |  61.5   | 63.5  | 81.9 | 81.5 |   60.1    | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/Ecw4SgowlptPmDg14p0j6X0BKkqF0unHaSLat4TVstJdoQ?e=8z7DW8) |
-  | UniRef++-Swin-L     |  79.1  | 85.4  |  66.9   | 67.2  | 83.2 | 83.9 |   62.2    | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EST3QVvBmWVLrdwQ1D_nDwIBBvZ5U9I14MIkj-LirFTA_w?e=uxeOdn) ｜
+  | Model             | RefCOCO | FSS-1000 | Ref-Youtube-VOS | Ref-DAVIS17 | Youtube-VOS18 | DAVIS17 | LVOS | Checkpoint |
+  | ------------------| :----:  | :---: | :-----: | :---: | :--: | :--: | :-------: | :--: |
+  | UniRef++-R50      |  75.6   | 79.1  |  61.5   | 63.5  | 81.9 | 81.5 |   60.1    | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/Ecw4SgowlptPmDg14p0j6X0BKkqF0unHaSLat4TVstJdoQ?e=8z7DW8) |
+  | UniRef++-Swin-L   |  79.1   | 85.4  |  66.9   | 67.2  | 83.2 | 83.9 |   62.2    | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EST3QVvBmWVLrdwQ1D_nDwIBBvZ5U9I14MIkj-LirFTA_w?e=uxeOdn)
 
 
 ## Installation
