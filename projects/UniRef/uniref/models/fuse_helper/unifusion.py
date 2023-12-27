@@ -38,16 +38,7 @@ class UniFusion(torch.nn.Module):
             nn.SiLU(),
             nn.Linear(self.img_dim, 3 * self.img_dim, bias=True)
         )
-        # mlp  TODO: whether need mlp
-        # self.norm_mlp = nn.LayerNorm(self.img_dim)
-        # mlp_hidden_dim = int(self.img_dim * 4.0)
-        # approx_gelu = lambda: nn.GELU(approximate="tanh")
-        # self.mlp = Mlp(in_features=self.img_dim, hidden_features=mlp_hidden_dim, act_layer=approx_gelu, drop=0.)
-        # adaLN
-        # self.adaLN_modulation = nn.Sequential(
-        #     nn.SiLU(),
-        #     nn.Linear(self.img_dim, 6 * self.img_dim, bias=True)
-        # )
+
 
         # zero init
         nn.init.constant_(self.adaLN_modulation[-1].weight, 0)
@@ -109,26 +100,6 @@ class UniFusion(torch.nn.Module):
                 src = src + src_l
             elif mask_dict_features is not None:
                 src = src + src_m
-
-            # # mlp
-            # if lang_dict_features is not None:
-            #     # mlp
-            #     src_l = self.mlp(self.norm_mlp(src))
-            #     # shift, scale
-            #     src_l = gate_mlp_l.unsqueeze(1) * modulate(src_l, shift_mlp_l, scale_mlp_l)
-            # if mask_dict_features is not None:
-            #     # mlp
-            #     src_m = self.mlp(self.norm_mlp(src))
-            #     # shift, scale
-            #     src_m = gate_mlp_m.unsqueeze(1) * modulate(src_m, shift_mlp_m, scale_mlp_m)
-
-            # # add
-            # if lang_dict_features is not None and mask_dict_features is not None:
-            #     src = src + src_l + src_m
-            # elif lang_dict_features is not None:
-            #     src = src + src_l
-            # elif mask_dict_features is not None:
-            #     src = src + src_m
 
             # reshape
             src = src.permute(0, 2, 1).reshape(n, c, h, w)
