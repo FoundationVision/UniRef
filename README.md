@@ -13,8 +13,9 @@ Official implementation of [UniRef++](), an extended version of ICCV2023 [UniRef
 
 ## Schedule
 
-- [ ] Add Getting Started
-- [ ] Model Checkpoints
+- [ ] Add Training Guide
+- [ ] Add Evaluation Guide
+- [x] Release Model Checkpoints
 - [x] Release Code
 
 ## Results
@@ -25,6 +26,14 @@ https://github.com/FoundationVision/UniRef/assets/21001460/63d875ed-9f5b-47c9-99
 ![results](assets/results.png)
 
 ## Model Zoo
+
+- The results are reported on the validation set.
+
+  | Model             | RefCOCO | FSS-1000 | Ref-Youtube-VOS | Ref-DAVIS17 | Youtube-VOS18 | DAVIS17 | LVOS | Checkpoint |
+  | ------------------- | :----: | :---: | :-----: | :---: | :--: | :--: | :-------: | :--: |
+  | UniRef++-R50        |  75.6  | 79.1  |  61.5   | 63.5  | 81.9 | 81.5 |   60.1    | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/Ecw4SgowlptPmDg14p0j6X0BKkqF0unHaSLat4TVstJdoQ?e=8z7DW8) |
+  | UniRef++-Swin-L     |  79.1  | 85.4  |  66.9   | 67.2  | 83.2 | 83.9 |   62.2    | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EST3QVvBmWVLrdwQ1D_nDwIBBvZ5U9I14MIkj-LirFTA_w?e=uxeOdn)
+
 
 ## Installation
 
@@ -39,9 +48,9 @@ If you find this project useful in your research, please consider cite:
 
 ```BibTeX
 @article{wu2023uniref++,
-  title={UniRef++: },
+  title={UniRef++: Segment Every Reference Object in Spatial and Temporal Spaces},
   author={Wu, Jiannan and Jiang, Yi and Yan, Bin and Lu, Huchuan and Yuan, Zehuan and Luo, Ping},
-  journal={arXiv preprint arXiv:todo},
+  journal={arXiv preprint arXiv:2312.15715},
   year={2023}
 }
 ```
