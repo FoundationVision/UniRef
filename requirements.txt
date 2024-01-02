@@ -1,5 +1,6 @@
 cython
-numpy==1.23
+numpy==1.23.0
+pydantic==1.10.0
 scipy
 tqdm
 einops
