@@ -21,6 +21,7 @@ The pretrained weights are placed in the folder `pretrained_models`.
 After preparation, the folder structure should be like:
 
 ```
+|- datasets/
 |- detectron2/
 |- projects/
 |    |- uniref/
@@ -41,7 +42,7 @@ We list the data for training and inference as following. The datasets in bracke
     - Objects365
 - **Image-level Training**
     - DET: COCO2017
-    - REC: RefCOCO/+/g
+    - RIS: RefCOCO/+/g
     - FSS: FSS-1000
 - **Video-level Training**
     - RVOS: RefCOCO/+/g, Ref-Youtube-VOS, (Ref-DAVIS17)
@@ -83,6 +84,7 @@ Please download [COCO2017](https://cocodataset.org/#home) from official website.
 |- datasets/
 |    |- coco/
 |    |    |- annotations/
+|    |    |    |- instances_train2017_video.json
 |    |    |    |- instances_train2017.json
 |    |    |    |- instances_val2017.json
 |    |    |- train2017/
