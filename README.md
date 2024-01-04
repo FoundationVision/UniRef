@@ -55,7 +55,7 @@ See [INSTALL.md](./INSTALL.md)
 
 Please see [DATA.md](assets/DATA.md) for data preparation.
 
-Please see [EVALUATION.md](assets/EVALUATION.md) for evaluation.
+Please see [EVAL.md](assets/EVALUATION.md) for evaluation.
 
 Please see [TRAIN.md](assets/TRAIN.md) for training.
 
