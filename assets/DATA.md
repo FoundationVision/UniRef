@@ -24,7 +24,7 @@ After preparation, the folder structure should be like:
 |- datasets/
 |- detectron2/
 |- projects/
-|    |- uniref/
+|    |- Uniref/
 |- pretrained_models/
 |    |- R-50.pkl
 |    |- swin_large_patch4_window12_384_22k.pkl
@@ -163,7 +163,7 @@ Please download [Ref-DAVIS17](https://davischallenge.org/davis2017/code.html) fr
 
 - Youtube-VOS-18
 
-Please download [Youtube-VOS-18](https://codalab.lisn.upsaclay.fr/competitions/7685#participate) from official website. We provide the preprocessed annotation ifles in [OneDrive](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/ES7642WZKIxLoNsz83_Gj3YBmqd1Rn3VOnVjSj5IVsOOtg?e=OVAgnO). The data structure should be like:
+Please download [Youtube-VOS-18](https://codalab.lisn.upsaclay.fr/competitions/7685#participate) from official website. We provide the preprocessed annotation files in [OneDrive](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/ES7642WZKIxLoNsz83_Gj3YBmqd1Rn3VOnVjSj5IVsOOtg?e=OVAgnO). The data structure should be like:
 
 
 ```
@@ -181,7 +181,7 @@ Please download [Youtube-VOS-18](https://codalab.lisn.upsaclay.fr/competitions/7
 
 - Youtube-VOS-19
 
-Please download [Youtube-VOS-19](https://codalab.lisn.upsaclay.fr/competitions/6066#participate) from official website. We provide the preprocessed annotation ifles in [OneDrive](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/ET3BNi1Mn7RFh-U1ETyj6bwBqZt2bWqHi8Uskp_U0ZYKKQ?e=QvyDvS). The data structure should be like:
+Please download [Youtube-VOS-19](https://codalab.lisn.upsaclay.fr/competitions/6066#participate) from official website. We provide the preprocessed annotation files in [OneDrive](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/ET3BNi1Mn7RFh-U1ETyj6bwBqZt2bWqHi8Uskp_U0ZYKKQ?e=QvyDvS). The data structure should be like:
 
 
 ```
@@ -214,7 +214,7 @@ Please download [DAVIS17](https://davischallenge.org/davis2017/code.html) from o
 
 - OVIS
 
-Please download [OVIS](https://codalab.lisn.upsaclay.fr/competitions/4763#participate) from official website. This is an video instance segmentation dataset, we convert the annotation file to class-agnostic format for our training. The preprocessed annotation is provided in [OneDrive](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EdbfYYhhOf1MmNLqQYXXjjUBzZTHzXxFvZieiR8AYVZ3sA?e=F45tOQ). The data structure should be like:
+Please download [OVIS](https://codalab.lisn.upsaclay.fr/competitions/4763#participate) from official website. This is an video instance segmentation dataset, we convert the annotation file to class-agnostic format for our training. The preprocessed annotation file is provided in [OneDrive](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EdbfYYhhOf1MmNLqQYXXjjUBzZTHzXxFvZieiR8AYVZ3sA?e=F45tOQ). The data structure should be like:
 
 
 ```

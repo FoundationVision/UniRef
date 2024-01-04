@@ -13,7 +13,7 @@ Official implementation of [UniRef++](), an extended version of ICCV2023 [UniRef
 
 ## Schedule
 
-- [ ] Add Training Guide
+- [x] Add Training Guide
 - [x] Add Evaluation Guide
 - [x] Add Data Preparation
 - [x] Release Model Checkpoints
@@ -56,6 +56,8 @@ See [INSTALL.md](./INSTALL.md)
 Please see [DATA.md](assets/DATA.md) for data preparation.
 
 Please see [EVALUATION.md](assets/EVALUATION.md) for evaluation.
+
+Please see [TRAIN.md](assets/TRAIN.md) for training.
 
 
 ## Citation
