@@ -25,8 +25,8 @@ pip3 install -e . --user
 Third, install the necessary packages.
 
 ```
-pip3 install git+https://github.com/youtubevos/cocoapi.git#"egg=pycocotools&subdirectory=PythonAPI" --user
 pip3 install -r requirements.txt --user
+pip3 install git+https://github.com/youtubevos/cocoapi.git#"egg=pycocotools&subdirectory=PythonAPI" --user
 # flash-attn
 python3 -m pip install ninja
 python3 -m pip install flash-attn==2.0.6
