@@ -39,7 +39,25 @@ https://github.com/FoundationVision/UniRef/assets/21001460/63d875ed-9f5b-47c9-99
 
 ## Model Zoo
 
-- The results are reported on the validation set.
+#### Objects365 Pretraining
+
+
+| Model             | Checkpoint |
+| ------------------| :--------: |
+| R50 | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EfAf4ivSOb1Ltk8O6NnsrC8BFyGU-cv3MBxeCCG0cWPMwQ?e=x4MlHm) |
+| Swin-L | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EW6pVPIup0RHrpIw3YJ_YX4Bke0Gln9O77AdBuLjGy3PLA?e=3TWdBN) |
+
+#### Imge-joint Training
+
+| Model             | RefCOCO | FSS-1000 | Checkpoint |
+| ------------------| :----:  |  :----:  | :--------: |
+| R50 | 76.3 | 85.2 | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EQYh_VdQ849BkEFtVkFHVtkBAF1WaAkUcFdl8uq3RNPXKw?e=OpQYyg) |
+| Swin-L | 79.9 | 87.7 | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EexNP8rDXflHtNE6Zb-e9f4BtgiSFhWv9zam-f1aXu6AVA?e=c9tJyV) |
+
+
+#### Video-joint Training
+
+The results are reported on the validation set.
 
   | Model             | RefCOCO | FSS-1000 | Ref-Youtube-VOS | Ref-DAVIS17 | Youtube-VOS18 | DAVIS17 | LVOS | Checkpoint |
   | ------------------| :----:  | :---: | :-----: | :---: | :--: | :--: | :-------: | :--: |
