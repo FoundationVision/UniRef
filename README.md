@@ -44,15 +44,15 @@ https://github.com/FoundationVision/UniRef/assets/21001460/63d875ed-9f5b-47c9-99
 
 | Model             | Checkpoint |
 | ------------------| :--------: |
-| R50 | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EfAf4ivSOb1Ltk8O6NnsrC8BFyGU-cv3MBxeCCG0cWPMwQ?e=x4MlHm) |
-| Swin-L | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EW6pVPIup0RHrpIw3YJ_YX4Bke0Gln9O77AdBuLjGy3PLA?e=3TWdBN) |
+| R50 | [model](https://drive.google.com/file/d/1cz7xWfk0xBRNMTM7P8Vtb7jT6cBv5fKN/view?usp=sharing) |
+| Swin-L | [model](https://drive.google.com/file/d/1C9tjfR6puq6HUcLSwII74GRQBl-YCuD8/view?usp=sharing) |
 
 #### Imge-joint Training
 
 | Model             | RefCOCO | FSS-1000 | Checkpoint |
 | ------------------| :----:  |  :----:  | :--------: |
-| R50 | 76.3 | 85.2 | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EQYh_VdQ849BkEFtVkFHVtkBAF1WaAkUcFdl8uq3RNPXKw?e=OpQYyg) |
-| Swin-L | 79.9 | 87.7 | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EexNP8rDXflHtNE6Zb-e9f4BtgiSFhWv9zam-f1aXu6AVA?e=c9tJyV) |
+| R50 | 76.3 | 85.2 | [model](https://drive.google.com/file/d/1RNerEk7nrbFBI9dY5HIK7ErmqKLN40_g/view?usp=sharing) |
+| Swin-L | 79.9 | 87.7 | [model](https://drive.google.com/file/d/1dhCRuSDkw7IjxoUZo1EHDPU_608QHcx_/view?usp=sharing) |
 
 
 #### Video-joint Training
@@ -61,8 +61,8 @@ The results are reported on the validation set.
 
   | Model             | RefCOCO | FSS-1000 | Ref-Youtube-VOS | Ref-DAVIS17 | Youtube-VOS18 | DAVIS17 | LVOS | Checkpoint |
   | ------------------| :----:  | :---: | :-----: | :---: | :--: | :--: | :-------: | :--: |
-  | UniRef++-R50      |  75.6   | 79.1  |  61.5   | 63.5  | 81.9 | 81.5 |   60.1    | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/Ecw4SgowlptPmDg14p0j6X0BKkqF0unHaSLat4TVstJdoQ?e=8z7DW8) |
-  | UniRef++-Swin-L   |  79.1   | 85.4  |  66.9   | 67.2  | 83.2 | 83.9 |   67.2    | [model](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/wjn922_connect_hku_hk/EST3QVvBmWVLrdwQ1D_nDwIBBvZ5U9I14MIkj-LirFTA_w?e=uxeOdn)
+  | UniRef++-R50      |  75.6   | 79.1  |  61.5   | 63.5  | 81.9 | 81.5 |   60.1    | [model](https://drive.google.com/file/d/190SV9GU6Pd9FMZQnRrCbgw8lqDYF9_-I/view?usp=sharing) |
+  | UniRef++-Swin-L   |  79.1   | 85.4  |  66.9   | 67.2  | 83.2 | 83.9 |   67.2    | [model](https://drive.google.com/file/d/1ggkoEo1n2b-3sZDVVw3qFg1kyJQPc1jT/view?usp=sharing)
 
 
 ## Installation
